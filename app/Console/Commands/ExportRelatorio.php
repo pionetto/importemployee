@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Exports\RelatorioSicgesp;
 use Maatwebsite\Excel\Facades\Excel;
+use Carbon\Carbon;
 
 class ExportRelatorio extends Command
 {
@@ -39,9 +40,17 @@ class ExportRelatorio extends Command
      */
     public function handle()
     {
+        
         $ano = $this->ask('Qual ano você deseja consultar?');
         $mes = $this->ask('Qual mês você deseja consultar?');
 
+        $startTime = Carbon::now();
+        $this->info($startTime);
+
         Excel::store(new RelatorioSicgesp(strval($ano), strval($mes)), 'teste.xlsx');
+        
+        $currentTime = Carbon::now();
+        $totalTime = $currentTime->diffForHumans($startTime);
+        $this->info($totalTime);
     }
 }

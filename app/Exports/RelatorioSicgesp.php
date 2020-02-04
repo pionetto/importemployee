@@ -11,7 +11,7 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\Exportable;
 use App\Http\Resources\FolhaPagamentoResource;
 
-class RelatorioSicgesp implements WithHeadings, FromCollection
+class RelatorioSicgesp implements WithHeadings, FromCollection, WithMapping
 {
     use Exportable;
 
@@ -30,8 +30,12 @@ class RelatorioSicgesp implements WithHeadings, FromCollection
 
     public function collection()
     {
-        return new FolhaPagamentoResource(
-            FolhaPagamento::all()
+
+        // $take = FolhaPagamento::query()->ano($this->ano)->mes($this->mes)->count();
+
+        return new Collection(
+            // FolhaPagamento::query()->ano($this->ano)->mes($this->mes)->take(7348)->get()
+            FolhaPagamento::ano($this->ano)->mes($this->mes)->take(10)->get()
         );
     }
     
@@ -58,26 +62,26 @@ class RelatorioSicgesp implements WithHeadings, FromCollection
         ];
     }
     
-    // public function map($row) : array
-    // {
-    //     return [
-    //         $row->datacompetencia,
-    //         $row->nome,
-    //         $row->matricula,
-    //         // $row->cpf,
-    //         $row->codlotacao,
-    //         $row->nomelotacao,
-    //         $row->codvinculo,
-    //         $row->nomevinculo,
-    //         $row->codfuncao,
-    //         $row->nomefuncao,
-    //         // $row->datanascimento,
-    //         $row->codescolaridade,
-    //         // $row->sexo,
-    //         $row->dataadmissao,
-    //         $row->codrecurso,
-    //         $row->nomerecurso,
-    //         $row->remuneracao
-    //     ];
-    // }
+    public function map($row) : array
+    {
+        return [
+            $row->datacompetencia,
+            $row->nome,
+            $row->matricula,
+            $row->cpf,
+            $row->codlotacao,
+            $row->nomelotacao,
+            $row->codvinculo,
+            $row->nomevinculo,
+            $row->codfuncao,
+            $row->nomefuncao,
+            $row->datanascimento,
+            $row->codescolaridade,
+            $row->sexo,
+            $row->dataadmissao,
+            $row->codrecurso,
+            $row->nomerecurso,
+            $row->remuneracao
+        ];
+    }
 }

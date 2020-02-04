@@ -9,6 +9,8 @@ class FolhaPagamento extends Model
     protected $table = 'fp_calculomovimento';
     protected $connection = 'siap';
     protected $primaryKey = 'fp_calculoservidorid';
+    public $incrementing = false;
+    protected $keyType = 'string';
 
     public function escolaridade(){
         return $this->belongsTo(Employee::class, 'fp_calculoservidorid', 'matricula' );
@@ -58,11 +60,13 @@ class FolhaPagamento extends Model
 
     public function getCodVinculoAttribute()
     {
-        return $this->folha->folhatipo;
+        return !empty($this->folha->folhatipo) ? $this->folha->folhatipo : null;
     }
     
     public function getNomeVinculoAttribute()
     {
+        if (empty($this->folha->folhatipo)) return null;
+
         switch ($this->folha->folhatipo) {
             case '1':
                 return 'EFETIVO';
@@ -78,22 +82,22 @@ class FolhaPagamento extends Model
 
     public function getCpfAttribute()
     {
-        return $this->funcionario->fp_calculoservidorcpf;
+        return !empty($this->funcionario->fp_calculoservidorcpf) ? $this->funcionario->fp_calculoservidorcpf : null;
     }
 
     public function getDataCompetenciaAttribute()
     {
-        return $this->folha->folhareferencia;
+        return !empty($this->folha->folhareferencia) ? $this->folha->folhareferencia : null;
     }
     
     public function getDataNascimentoAttribute()
     {
-        return $this->funcionario->fp_calculoservidornascto;
+        return !empty($this->funcionario->fp_calculoservidornascto) ? $this->funcionario->fp_calculoservidornascto : null;
     }
 
     public function getSexoAttribute()
     {
-        return $this->funcionario->fp_calculoservidorsexo;
+        return !empty($this->funcionario->fp_calculoservidorsexo) ? $this->funcionario->fp_calculoservidorsexo : null;
     }
 
     public function getNomeAttribute()
@@ -133,11 +137,12 @@ class FolhaPagamento extends Model
 
     public function getCodRecursoAttribute()
     {
-        return $this->folha->fp_recursoid;
+        return !empty($this->folha->fp_recursoid) ? $this->folha->fp_recursoid : null;
     }
 
     public function getNomeRecursoAttribute()
     {
+        if (empty($this->folha->recurso->fp_recursodescricao)) return null;
         return trim($this->folha->recurso->fp_recursodescricao, ' ');
     }
 
@@ -148,6 +153,6 @@ class FolhaPagamento extends Model
 
     public function getCodEscolaridadeAttribute()
     {
-        return !empty($this->escolaridade->escolaridade) ?? $this->escolaridade->escolaridade;
+        return !empty($this->escolaridade->escolaridade) ? $this->escolaridade->escolaridade : null;
     }
 }

@@ -14,7 +14,6 @@ class CreateEmployeesTable extends Migration
     public function up()
     {
         Schema::create('employees', function (Blueprint $table) {
-            $table->bigIncrements('id');
             $table->string('matricula')->nullable();
             $table->string('nome')->nullable();
             $table->string('escolaridade')->nullable();
