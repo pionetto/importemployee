@@ -39,6 +39,9 @@ class ExportRelatorio extends Command
      */
     public function handle()
     {
-        Excel::store(new RelatorioSicgesp(), 'teste.xlsx');
+        $ano = $this->ask('Qual ano você deseja consultar?');
+        $mes = $this->ask('Qual mês você deseja consultar?');
+
+        Excel::store(new RelatorioSicgesp(strval($ano), strval($mes)), 'teste.xlsx');
     }
 }

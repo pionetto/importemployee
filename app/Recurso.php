@@ -8,4 +8,5 @@ class Recurso extends Model
 {
     protected $connection = 'siap';
     protected $table = 'fp_recurso';
+    protected $primaryKey = 'fp_recursoid';
 }

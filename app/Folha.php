@@ -8,6 +8,7 @@ class Folha extends Model
 {
     protected $connection = 'siap';
     protected $table = 'fp_folha';
+    protected $primaryKey = 'folhaid';
 
     public function recurso()
     {

@@ -8,6 +8,7 @@ class FolhaPagamento extends Model
 {
     protected $table = 'fp_calculomovimento';
     protected $connection = 'siap';
+    protected $primaryKey = 'fp_calculoservidorid';
 
     public function escolaridade(){
         return $this->belongsTo(Employee::class, 'fp_calculoservidorid', 'matricula' );
@@ -55,7 +56,12 @@ class FolhaPagamento extends Model
         return $this->fp_calculohoraaula;
     }
 
-    public function getVinculoAttribute()
+    public function getCodVinculoAttribute()
+    {
+        return $this->folha->folhatipo;
+    }
+    
+    public function getNomeVinculoAttribute()
     {
         switch ($this->folha->folhatipo) {
             case '1':
@@ -82,12 +88,66 @@ class FolhaPagamento extends Model
     
     public function getDataNascimentoAttribute()
     {
-        return $this->folha->fp_calculoservidornascto;
+        return $this->funcionario->fp_calculoservidornascto;
     }
 
     public function getSexoAttribute()
     {
-        return $this->folha->fp_calculoservidorsexo;
+        return $this->funcionario->fp_calculoservidorsexo;
     }
 
+    public function getNomeAttribute()
+    {
+        return trim($this->fp_calculoservidornome, ' ');
+    }
+
+    public function getMatriculaAttribute()
+    {
+        return $this->fp_calculoservidorid;
+    }
+
+    public function getCodLotacaoAttribute()
+    {
+        return $this->fp_calculolotacaoid;
+    }
+
+    public function getNomeLotacaoAttribute()
+    {
+        return trim($this->fp_calculolotacaodescricao, ' ');
+    }
+
+    public function getCodFuncaoAttribute()
+    {
+        return $this->fp_calculofuncaoid;
+    }
+
+    public function getNomeFuncaoAttribute()
+    {
+        return trim($this->fp_calculofuncaodescricao, ' ');
+    }
+
+    public function getDataAdmissaoAttribute()
+    {
+        return $this->fp_calculoservidoradmissao;
+    }
+
+    public function getCodRecursoAttribute()
+    {
+        return $this->folha->fp_recursoid;
+    }
+
+    public function getNomeRecursoAttribute()
+    {
+        return trim($this->folha->recurso->fp_recursodescricao, ' ');
+    }
+
+    public function getRemuneracaoAttribute()
+    {
+        return $this->fp_calculobruto;
+    }
+
+    public function getCodEscolaridadeAttribute()
+    {
+        return !empty($this->escolaridade->escolaridade) ?? $this->escolaridade->escolaridade;
+    }
 }
