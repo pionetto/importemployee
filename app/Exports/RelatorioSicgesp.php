@@ -31,11 +31,10 @@ class RelatorioSicgesp implements WithHeadings, FromCollection, WithMapping
     public function collection()
     {
 
-        // $take = FolhaPagamento::query()->ano($this->ano)->mes($this->mes)->count();
+        $take = FolhaPagamento::query()->ano($this->ano)->mes($this->mes)->count();
 
         return new Collection(
-            // FolhaPagamento::query()->ano($this->ano)->mes($this->mes)->take(7348)->get()
-            FolhaPagamento::ano($this->ano)->mes($this->mes)->take(10)->get()
+            FolhaPagamento::ano($this->ano)->mes($this->mes)->take($take)->get()
         );
     }
     
