@@ -14,4 +14,9 @@ class Folha extends Model
     {
         return $this->belongsTo(Recurso::class, 'fp_recursoid', 'fp_recursoid');
     }
+
+    public function scopeCompetencia($query, $competencia)
+    {
+        return $query->where('folhareferencia', '=', $competencia);
+    }
 }

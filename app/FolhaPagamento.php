@@ -18,7 +18,7 @@ class FolhaPagamento extends Model
 
     public function folha()
     {
-        return $this->belongsTo(Folha::class, 'fp_calculocompetencia', 'folhareferencia');
+        return $this->belongsTo(Folha::class, 'fp_calculofolhaid', 'folhaid')->competencia($this->fp_calculocompetencia);
     }
 
     public function rubrica()

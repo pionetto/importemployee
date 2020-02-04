@@ -47,7 +47,7 @@ class ExportRelatorio extends Command
         $startTime = Carbon::now();
         $this->info($startTime);
 
-        Excel::store(new RelatorioSicgesp(strval($ano), strval($mes)), 'teste.xlsx');
+        Excel::store(new RelatorioSicgesp(strval($ano), strval($mes)), "{$startTime->format('d-m-Y')}-{$ano}{$mes}.xlsx");
         
         $currentTime = Carbon::now();
         $totalTime = $currentTime->diffForHumans($startTime);
