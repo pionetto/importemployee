@@ -50,8 +50,19 @@ class FolhaPagamento extends Model
     public function getCargaHorariaAttribute()
     {
         if ($this->fp_calculohoraaula == '0'){
-            if ($this->rubrica->first()->fp_calculoverbaid == '1017') {
-                return '0';
+            
+            switch ($this->rubrica->first()->fp_calculoverbaid) {
+                case '1017': return '0'; break;
+                case '2039': return '0'; break;
+                case '2254': return '0'; break;
+                case '3084': return '0'; break;
+                case '2778': return '0'; break;
+                case '3999': return '0'; break;
+                case '1002': return '0'; break;
+                case '1009': return '0'; break;
+                case '1012': return '0'; break;
+                case '1013': return '0'; break;
+                case '2063': return '0'; break;
             }
             return '180';
         }
