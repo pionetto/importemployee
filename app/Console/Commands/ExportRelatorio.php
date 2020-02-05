@@ -14,7 +14,7 @@ class ExportRelatorio extends Command
      *
      * @var string
      */
-    protected $signature = 'export:relatorio';
+    protected $signature = 'export:relatorio {ano} {mes}';
 
     /**
      * The console command description.
@@ -41,8 +41,8 @@ class ExportRelatorio extends Command
     public function handle()
     {
         
-        $ano = $this->ask('Qual ano você deseja consultar?');
-        $mes = $this->ask('Qual mês você deseja consultar?');
+        $ano = $this->argument('ano');
+        $mes = $this->argument('mes');
 
         $startTime = Carbon::now();
         $this->info($startTime);
@@ -51,6 +51,6 @@ class ExportRelatorio extends Command
         
         $currentTime = Carbon::now();
         $totalTime = $currentTime->diffForHumans($startTime);
-        $this->info($totalTime);
+        $this->info($totalTime);            
     }
 }
